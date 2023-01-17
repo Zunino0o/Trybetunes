@@ -1,10 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import Input from '../components/Input';
+import { createUser } from '../services/userAPI';
 
 class Login extends Component {
+  state = {
+    loading: false,
+  };
+
+  fetchInfo = (jon) => {
+    createUser({ name: jon });
+    this.setState({
+      loading: true,
+    });
+  };
+
   render() {
-    const { loginInput, isSubmitButtonDisabled, onInputChange, createUser } = this.props;
+    const { loginInput, isSubmitButtonDisabled, onInputChange } = this.props;
+
+    const { loading } = this.state;
+
     return (
       <div data-testid="page-login">
         <form action="" method="get">
@@ -20,11 +36,12 @@ class Login extends Component {
           <button
             type="submit"
             data-testid="login-submit-button"
-            onClick={ createUser }
+            onClick={ () => this.fetchInfo(loginInput) }
             disabled={ isSubmitButtonDisabled }
           >
             Entrar
           </button>
+          {loading ? <Redirect to="/loading" /> : ''}
         </form>
       </div>
     );
@@ -35,7 +52,6 @@ Login.propTypes = {
   loginInput: PropTypes.string.isRequired,
   isSubmitButtonDisabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
-  createUser: PropTypes.func.isRequired,
 };
 
 export default Login;
