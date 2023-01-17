@@ -30,7 +30,6 @@ class App extends React.Component {
   onInputChange = ({ target }) => {
     const { name, value } = target;
     this.setState({ [name]: value }, this.validateLoginButton);
-    // console.log(() => createUser({ name: loginInput }));
   };
 
   render() {
@@ -42,8 +41,8 @@ class App extends React.Component {
           <Route exact path="/album/:id" component={ Album } />
           <Route exact path="/favorites" component={ Favorites } />
           <Route exact path="/profile" component={ Profile } />
-          <Route exact path="/loading" component={ Loading } />
           <Route exact path="/profile/edit" component={ ProfileEdit } />
+          <Route exact path="/loading" component={ Loading } />
           <Route
             exact
             path="/"
