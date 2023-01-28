@@ -80,7 +80,7 @@ class Search extends Component {
           )}
         </div>
         <h2>
-          {response
+          {(response.length)
             ? `Resultado de álbuns de: ${artist}`
             : ''}
 
