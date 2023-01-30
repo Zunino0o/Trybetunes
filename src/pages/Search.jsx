@@ -89,7 +89,7 @@ class Search extends Component {
 
           {(response.length)
             ? response.map((album) => (
-              <div key={ album.collectionId }>
+              <div key={ album.collectionId } { ...album }>
                 <img src={ album.artworkUrl100 } alt={ album.collectionName } />
                 <Link
                   key={ album.collectionId }
