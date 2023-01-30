@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 
 class MusicCard extends Component {
   state = {
     isLoading: false,
     checked: false,
+    // favSongsStrg: [],
   };
 
   async componentDidMount() {
@@ -29,10 +30,17 @@ class MusicCard extends Component {
       isLoading: true,
       checked: target.checked,
     }, async () => {
-      await addSong(JSON.parse(target.name));
+      const { checked } = this.state;
+      if (checked) {
+        await addSong(JSON.parse(target.name));
+      } else {
+        await removeSong(JSON.parse(target.name));
+      }
+      // const favSongsStrg = await getFavoriteSongs();
       // .then(() => setTimeout(() => {}, '3000'))
       this.setState({
         isLoading: false,
+        // favSongsStrg,
       });
     });
   };
