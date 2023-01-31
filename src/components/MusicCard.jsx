@@ -26,15 +26,17 @@ class MusicCard extends Component {
   }
 
   favFunc = ({ target }) => {
+    const { handleSaveState } = this.props;
     this.setState({
       isLoading: true,
       checked: target.checked,
     }, async () => {
-      const { checked } = this.state;
-      if (checked) {
+      // const { checked } = this.state;
+      if (target.checked) {
         await addSong(JSON.parse(target.name));
       } else {
         await removeSong(JSON.parse(target.name));
+        if (handleSaveState) handleSaveState();
       }
       // const favSongsStrg = await getFavoriteSongs();
       // .then(() => setTimeout(() => {}, '3000'))
@@ -78,6 +80,11 @@ class MusicCard extends Component {
 
 MusicCard.propTypes = {
   info: PropTypes.objectOf(PropTypes.objectOf).isRequired,
+  handleSaveState: PropTypes.func,
+};
+
+MusicCard.defaultProps = {
+  handleSaveState: undefined,
 };
 
 export default MusicCard;
